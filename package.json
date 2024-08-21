@@ -1,0 +1,13 @@
+{
+  "name": "your-project-name",
+  "version": "1.0.0",
+  "description": "Your project description",
+  "main": "api/upload.js",
+  "scripts": {
+    "start": "node api/upload.js"
+  },
+  "dependencies": {
+    "node-fetch": "^3.2.0",
+    "form-data": "^4.0.0"
+  }
+}
