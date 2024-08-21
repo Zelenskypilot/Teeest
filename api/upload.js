@@ -1,12 +1,12 @@
-const fetch = require('node-fetch');
-const FormData = require('form-data');
+import fetch from 'node-fetch';
+import FormData from 'form-data';
 
 export default async function handler(req, res) {
     if (req.method === 'POST') {
         try {
             const formData = new FormData();
             formData.append('image', req.body.image);
-            formData.append('key', process.env.IMG_API_KEY); // Replace with your environment variable for the API key
+            formData.append('key', process.env.IMG_API_KEY); // API key from environment variable
 
             const imgResponse = await fetch('https://api.imgbb.com/1/upload', {
                 method: 'POST',
@@ -22,8 +22,8 @@ export default async function handler(req, res) {
             const imageUrl = imgData.data.url;
             const paymentId = req.body.paymentId;
             const encodedMessage = encodeURIComponent(`Payment ID: ${paymentId}\nImage: ${imageUrl}`);
-            const phone = process.env.PHONE_NUMBER; // Replace with your environment variable for phone number
-            const apiKey = process.env.CALL_ME_BOT_API_KEY; // Replace with your environment variable for CallMeBot API key
+            const phone = process.env.PHONE_NUMBER; // Phone number from environment variable
+            const apiKey = process.env.CALL_ME_BOT_API_KEY; // API key from environment variable
 
             const msgResponse = await fetch(`https://api.callmebot.com/whatsapp.php?phone=${phone}&text=${encodedMessage}&apikey=${apiKey}`, {
                 method: 'GET'
@@ -43,4 +43,4 @@ export default async function handler(req, res) {
         res.setHeader('Allow', ['POST']);
         res.status(405).end(`Method ${req.method} Not Allowed`);
     }
-}
+                }
